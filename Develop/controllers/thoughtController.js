@@ -104,24 +104,30 @@ module.exports = {
       if (!thought) {
         return res.status(404).json({ error: 'Thought not found.' });
       }
+  
       console.log('Provided thoughtId:', thoughtId);
       console.log('Provided reactionId:', reactionId);
       console.log('Thought object:', thought);
-
-      const reactionIndex = thought.reactions.findIndex(reaction => reaction._id.toString() === reactionId);
-
-      if (reactionIndex === -1) {
+  
+      // Find the index of the reaction to be deleted
+      const reactionToDelete = thought.reactions.find(reaction => reaction._id.toString() === reactionId);
+  
+      // Check if the reaction exists
+      if (!reactionToDelete) {
         return res.status(404).json({ error: 'Reaction not found.' });
       }
   
-      thought.reactions.splice(reactionIndex, 1);
+      // Remove the found reaction from the reactions array
+      thought.reactions.pull(reactionToDelete._id);
   
       const savedThought = await thought.save();
       res.status(200).json(savedThought);
     } catch (error) {
-      console.error(error); // Use 'error' instead of 'err'
       res.status(500).json({ error: 'Could not delete the reaction.' });
     }
   }
+  
+  
+  
   
 };
