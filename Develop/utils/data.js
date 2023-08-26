@@ -74,45 +74,44 @@ const names = [
   'Parker',
 ];
 
-const appDescriptions = [
-  'Decision Tracker',
-  'Find My Phone',
-  'Learn Piano',
-  'Starbase Defender',
-  'Tower Defense',
-  'Monopoly Money Manager',
-  'Movie trailers',
-  'Hello world',
-  'Stupid Social Media App',
-  'Notes',
-  'Messages',
-  'Email',
-  'Compass',
-  'Firefox',
-  'Running app',
-  'Cooking app',
-  'Poker',
-  'Deliveries',
+const thoughts = [
+  'Streamline choices by tracking pros and cons',
+  'Locate misplaced devices effortlessly',
+  'Unlock melodies through interactive lessons',
+  'Defend galaxies against alien invasions',
+  'Strategically protect realms from oncoming hordes',
+  'Organize virtual currency in the classic board game',
+  'Preview upcoming films and get a sneak peek',
+  'A minimalist app for simple greetings',
+  'Connect and share in a lighthearted environment',
+  'Jot down quick ideas and reminders',
+  'Instantly communicate with friends and family',
+  'Manage your digital correspondence efficiently',
+  'Navigate your surroundings with digital precision',
+  'Browse the web using a trusted and versatile browser',
+  'Track your jogging progress and stay motivated',
+  'Discover recipes and master culinary skills',
+  'Play classic card games and test your luck',
+  'Monitor and receive updates on your package shipments',
 ];
 
 // Get a random item given an array
 const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-// Gets a random full name
+// Gets a random name
 const getRandomName = () =>
-  `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
+  `${getRandomArrItem(names)}`;
 
-// Function to generate random assignments that we can add to student object.
-const getRandomAssignments = (int) => {
-  const results = [];
-  for (let i = 0; i < int; i++) {
-    results.push({
-      assignmentName: getRandomArrItem(appDescriptions),
-      score: Math.floor(Math.random() * (99 - 70 + 1) + 70),
-    });
+// getRandomThoughts function that returns an array of strings
+const getRandomThoughts = (count) => {
+  const randomThoughts = [];
+  for (let i = 0; i < count; i++) {
+    const randomIndex = Math.floor(Math.random() * thoughts.length);
+    randomThoughts.push(thoughts[randomIndex]);
   }
-  return results;
+  return randomThoughts;
 };
 
+
 // Export the functions for use in seed.js
-module.exports = { getRandomName, getRandomAssignments };
+module.exports = { getRandomName, getRandomThoughts };

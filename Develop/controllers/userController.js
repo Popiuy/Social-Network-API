@@ -6,17 +6,20 @@ module.exports = {
   // Get all Users
   async getUsers(req, res) {
     try {
-      const users = await User.find();
-      const usersObj = {
-        // headCount: await headCount(),
-        users,
-      };
-      return res.json(usersObj);
+      const users = await User.find()
+      .populate('thoughts')
+      .populate('friends')
+      .select('-__v') 
+      .lean();
+      
+      return res.json({ users });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return res.status(500).json(err);
     }
   },
+  
+  
   // Get a single student
   async getSingleUser(req, res) {
     try {
@@ -69,7 +72,7 @@ module.exports = {
     }
   },
 
-  // Delete a student and remove them from the course
+  // delete a user
   async deleteUser(req, res) {
     try {
       const user = await User.findOneAndRemove({ _id: req.params.userId });
